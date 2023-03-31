@@ -21,4 +21,7 @@
         // header('Location: login.html');
         // exit;
     }
+
+    session_destroy();
+    
     ?>

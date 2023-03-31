@@ -14,7 +14,7 @@
 
 	// Get current password from database
 	$stmt = $conn->prepare("SELECT password FROM users WHERE email = ?");
-	$stmt->bind_param("i", $email);
+	$stmt->bind_param("s", $email);
 	$stmt->execute();
 	$result = $stmt->get_result();
 	$row = $result->fetch_assoc();
@@ -25,24 +25,24 @@
 
 
 		// Validate current password
-		if ((string)$current_password != (string)$current_password_input) {
+		if ($current_password != $current_password_input) {
 			$error = 'Incorrect current password.';
 			echo $error;
-			header('Location: login.php');
-    			exit();
-			// echo $current_password;
-			// echo $current_password_input;
+			// header('Location: login.html');
+    		// 	exit();
+			echo $current_password;
+			echo $current_password_input;
 		} else {
 			// Validate new password
 			if ($new_password != $confirm_password) {
 				$error = 'New password and confirmation do not match.';
 				echo $error;
-				header('Location: login.php');
+				header('Location: login.html');
     			exit();
 			} else if (strlen($new_password) < 8) {
 				$error = 'New password must be at least 8 characters long.';
 				echo $error;
-				header('Location: login.php');
+				header('Location: login.htmlp');
     			exit();
 			} else {
 				// Update password in database

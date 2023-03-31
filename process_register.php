@@ -41,6 +41,6 @@
 
     $stmt->close();
     $conn->close();
-    header('Location: index.php');
+    header('Location: profile.php');
     exit();
 ?>
