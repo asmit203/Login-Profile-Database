@@ -49,7 +49,7 @@
 				$uppercase = preg_match('@[A-Z]@', $new_password);
     			$lowercase = preg_match('@[a-z]@', $new_password);
     			$number    = preg_match('@[0-9]@', $new_password);
-				if(!$uppercase || !$lowercase || !$number || strlen($upassword) < 8) {
+				if(!$uppercase || !$lowercase || !$number || strlen($new_password) < 8) {
 					die("Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number");
 				}
 				// Update password in database
