@@ -29,8 +29,17 @@
     if ($upassword !== $confirmPassword) {
         die("Passwords do not match");
     }
-
+    
     require_once 'db_conn.php';
+    $query = "SELECT email FROM users WHERE email='$email'";
+    $result = $conn->query($query);
+    if ($result->num_rows > 0) {
+        echo "<span style='color:red'>This Email is alredy exists </span>";
+        exit();
+    }
+
+
+    // require_once 'db_conn.php';
     
     // Prepare and bind the SQL statement
     $stmt = $conn->prepare("INSERT INTO users (firstname, lastname, email, password) VALUES (?, ?, ?, ?)");
