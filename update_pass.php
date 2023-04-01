@@ -8,6 +8,7 @@
 	$npass = $_POST['new_password'];
 	$cnpass = $_POST['confirm_password'];
 	$email = $_POST['email'];
+	
 	// Connect to database
 	require_once 'db_conn.php';
 
@@ -28,10 +29,10 @@
 		if ($current_password != $current_password_input) {
 			$error = 'Incorrect current password.';
 			echo $error;
-			// header('Location: login.html');
-    		// 	exit();
-			echo $current_password;
-			echo $current_password_input;
+			header('Location: login.html');
+    			exit();
+			// echo $current_password;
+			// echo $current_password_input;
 		} else {
 			// Validate new password
 			if ($new_password != $confirm_password) {
@@ -45,6 +46,12 @@
 				header('Location: login.htmlp');
     			exit();
 			} else {
+				$uppercase = preg_match('@[A-Z]@', $new_password);
+    			$lowercase = preg_match('@[a-z]@', $new_password);
+    			$number    = preg_match('@[0-9]@', $new_password);
+				if(!$uppercase || !$lowercase || !$number || strlen($upassword) < 8) {
+					die("Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number");
+				}
 				// Update password in database
 				require_once 'db_conn.php';
 				$sql = "UPDATE users SET password='$npass' WHERE email='$email'";
